@@ -1,0 +1,14 @@
+# 小红书发布器配置
+
+# 浏览器调试端口
+debug_port: 9222
+
+# 默认发布选项
+default_publish_options:
+  dry_run: true  # 默认使用演示模式，不真正点击发布
+  delay_per_char: 0.1  # 输入每个字符的延迟
+
+# 日志配置
+logging:
+  level: INFO
+  file: logs/publisher.log

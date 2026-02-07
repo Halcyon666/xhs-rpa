@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Chrome User Data
+chrome-profile/
+chrome-debug-profile/
+
+# Logs and Data
+logs/
+generated_imgs/
+xhs_data.db
+
+# System
+.DS_Store
+Thumbs.db
+
+# Test images
+test.jpg
