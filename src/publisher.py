@@ -28,10 +28,16 @@ class XHSPublisher:
         """连接到已登录的 Chrome 浏览器"""
         try:
             self._playwright = await async_playwright().start()
-            # 强制使用 127.0.0.1 避免 IPv6 解析问题
-            self.browser = await self._playwright.chromium.connect_over_cdp(
-                f"http://127.0.0.1:{self.debug_port}"
-            )
+            # 使用 IPv6 地址 [::1] 连接 Chrome
+            # 优先尝试 IPv4，失败则尝试 IPv6
+            try:
+                self.browser = await self._playwright.chromium.connect_over_cdp(
+                    f"http://127.0.0.1:{self.debug_port}"
+                )
+            except Exception:
+                self.browser = await self._playwright.chromium.connect_over_cdp(
+                    f"http://[::1]:{self.debug_port}"
+                )
             context = self.browser.contexts[0]
             self.page = context.pages[0] if context.pages else await context.new_page()
             self.page.set_default_timeout(30000)
